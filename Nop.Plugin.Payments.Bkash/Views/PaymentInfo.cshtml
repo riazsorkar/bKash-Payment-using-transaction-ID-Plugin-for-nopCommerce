@@ -1,0 +1,20 @@
+﻿@model Nop.Plugin.Payments.bKash.Models.PaymentInfoModel
+
+<div class="form-group">
+	<div class="col-md-3">
+		<nop-label asp-for="TransactionId" />
+	</div>
+	<div class="col-md-9">
+		<input asp-for="TransactionId" class="form-control" name="bkashTransactionId" />
+		<span asp-validation-for="TransactionId"></span>
+	</div>
+</div>
+<div class="form-group">
+	<div class="col-md-3">
+		<nop-label asp-for="SenderNumber" />
+	</div>
+	<div class="col-md-9">
+		<input asp-for="SenderNumber" class="form-control" name="bkashSenderNumber" />
+		<span asp-validation-for="SenderNumber"></span>
+	</div>
+</div>

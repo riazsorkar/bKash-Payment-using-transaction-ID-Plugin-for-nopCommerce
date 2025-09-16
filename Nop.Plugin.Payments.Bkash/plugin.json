@@ -1,0 +1,11 @@
+{
+  "Group": "Payment methods",
+  "FriendlyName": "bKash Payment",
+  "SystemName": "Payments.bKash",
+  "Version": "1.0",
+  "SupportedVersions": [ "4.80" ],
+  "Author": "Your Name",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Payments.bKash.dll",
+  "Description": "This plugin enables payment via bKash with transaction ID verification"
+}
