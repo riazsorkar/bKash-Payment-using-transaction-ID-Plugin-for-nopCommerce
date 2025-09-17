@@ -4,7 +4,7 @@
   "SystemName": "Payments.bKash",
   "Version": "1.0",
   "SupportedVersions": [ "4.80" ],
-  "Author": "Your Name",
+  "Author": "Shakawat Hosen Riaz",
   "DisplayOrder": 1,
   "FileName": "Nop.Plugin.Payments.bKash.dll",
   "Description": "This plugin enables payment via bKash with transaction ID verification"
