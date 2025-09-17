@@ -1,4 +1,5 @@
 ﻿@model Nop.Plugin.Payments.bKash.Models.ConfigurationModel
+
 @{
 	Layout = "_ConfigurePlugin";
 }
@@ -6,15 +7,45 @@
 <form asp-controller="PaymentbKash" asp-action="Configure" method="post">
 	<div class="panel-group">
 		<div class="panel panel-default">
+			<div class="panel-heading">
+				bKash Account Information
+			</div>
 			<div class="panel-body">
-				@Html.Raw(T("Plugins.Payments.bKash.Instructions"))
+				<div class="form-group">
+					<div class="col-md-3">
+						<nop-override-store-checkbox asp-for="ReceiverNumber_OverrideForStore" asp-input="ReceiverNumber" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+						<nop-label asp-for="ReceiverNumber" />
+					</div>
+					<div class="col-md-9">
+						<nop-editor asp-for="ReceiverNumber" />
+						<span asp-validation-for="ReceiverNumber"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-3">
+						<nop-override-store-checkbox asp-for="ReceiverName_OverrideForStore" asp-input="ReceiverName" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+						<nop-label asp-for="ReceiverName" />
+					</div>
+					<div class="col-md-9">
+						<nop-editor asp-for="ReceiverName" />
+						<span asp-validation-for="ReceiverName"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Payment Settings
+			</div>
+			<div class="panel-body">
 				<div class="form-group">
 					<div class="col-md-3">
 						<nop-override-store-checkbox asp-for="DescriptionText_OverrideForStore" asp-input="DescriptionText" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
 						<nop-label asp-for="DescriptionText" />
 					</div>
 					<div class="col-md-9">
-						<nop-editor asp-for="DescriptionText" />
+						<nop-textarea asp-for="DescriptionText" />
 						<span asp-validation-for="DescriptionText"></span>
 					</div>
 				</div>
@@ -38,11 +69,12 @@
 						<span asp-validation-for="AdditionalFeePercentage"></span>
 					</div>
 				</div>
-				<div class="form-group">
-					<div class="col-md-9 col-md-offset-3">
-						<input type="submit" name="save" class="btn bg-primary" value="@T("Admin.Common.Save")" />
-					</div>
-				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-9 col-md-offset-3">
+				<input type="submit" name="save" class="btn bg-primary" value="@T("Admin.Common.Save")" />
 			</div>
 		</div>
 	</div>

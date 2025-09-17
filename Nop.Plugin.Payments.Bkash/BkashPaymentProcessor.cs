@@ -22,6 +22,7 @@ namespace Nop.Plugin.Payments.bKash
         private readonly ISettingService _settingService;
         private readonly IWebHelper _webHelper;
         private readonly bKashPaymentSettings _bKashPaymentSettings;
+        private readonly IStoreContext _storeContext;
 
         #endregion
 
@@ -31,12 +32,13 @@ namespace Nop.Plugin.Payments.bKash
             ISettingService settingService,
             ILocalizationService localizationService,
             IWebHelper webHelper,
-            bKashPaymentSettings bKashPaymentSettings)
+            bKashPaymentSettings bKashPaymentSettings, IStoreContext storeContext)
         {
             _localizationService = localizationService;
             _settingService = settingService;
             _webHelper = webHelper;
             _bKashPaymentSettings = bKashPaymentSettings;
+            _storeContext = storeContext;
         }
 
         #endregion
@@ -132,18 +134,23 @@ namespace Nop.Plugin.Payments.bKash
             return Task.FromResult<IList<string>>(warnings);
         }
 
-        public Task<ProcessPaymentRequest> GetPaymentInfoAsync(IFormCollection form)
+        public async Task<ProcessPaymentRequest> GetPaymentInfoAsync(IFormCollection form)
         {
+            var storeScope = await _storeContext.GetActiveStoreScopeConfigurationAsync();
+            var bKashPaymentSettings = await _settingService.LoadSettingAsync<bKashPaymentSettings>(storeScope);
             var paymentRequest = new ProcessPaymentRequest
             {
                 CustomValues = new Dictionary<string, object>
         {
-            { "bkashTransactionId", form["bkashTransactionId"].ToString() },
-            { "bkashSenderNumber", form["bkashSenderNumber"].ToString() }
+            { "Bkash TransactionId", form["bkashTransactionId"].ToString() },
+            { "Bkash Sender Number", form["bkashSenderNumber"].ToString() },
+            { "Bkash Receiver Number", bKashPaymentSettings?.ReceiverNumber ?? "Not configured" },
+            { "Bkash Receiver Name", bKashPaymentSettings?.ReceiverName ?? "Not configured" },
+            { "TransactionId Submit Date", DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss") }
         }
             };
 
-            return Task.FromResult(paymentRequest);
+            return paymentRequest;
         }
 
         public Type GetPublicViewComponent()
@@ -167,6 +174,9 @@ namespace Nop.Plugin.Payments.bKash
                 ["Plugins.Payments.bKash.RedirectionTip"] = "You will be redirected to bKash site to complete the payment.",
                 ["Plugins.Payments.bKash.TransactionId"] = "bKash Transaction ID",
                 ["Plugins.Payments.bKash.SenderNumber"] = "bKash Sender Number",
+                ["Plugins.Payments.bKash.ReceiverNumber"] = "Receiver Number",
+                ["Plugins.Payments.bKash.ReceiverName"] = "Receiver Name",
+                ["Plugins.Payments.bKash.PaymentInstructions"] = "Please send money to the bKash number below and provide the transaction ID.",
                 ["Plugins.Payments.bKash.AdditionalFee"] = "Additional fee",
                 ["Plugins.Payments.bKash.AdditionalFee.Hint"] = "Enter additional fee to charge your customers.",
                 ["Plugins.Payments.bKash.DescriptionText"] = "Description",

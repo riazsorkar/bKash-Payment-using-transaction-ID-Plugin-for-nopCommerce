@@ -58,6 +58,8 @@ namespace Nop.Plugin.Payments.bKash.Controllers
             {
                 DescriptionText = bKashPaymentSettings.DescriptionText,
                 AdditionalFee = bKashPaymentSettings.AdditionalFee,
+                ReceiverNumber = bKashPaymentSettings.ReceiverNumber,
+                ReceiverName = bKashPaymentSettings.ReceiverName,
                 AdditionalFeePercentage = bKashPaymentSettings.AdditionalFeePercentage,
                 ActiveStoreScopeConfiguration = storeScope
             };
@@ -66,6 +68,9 @@ namespace Nop.Plugin.Payments.bKash.Controllers
             {
                 model.DescriptionText_OverrideForStore = await _settingService.SettingExistsAsync(bKashPaymentSettings, x => x.DescriptionText, storeScope);
                 model.AdditionalFee_OverrideForStore = await _settingService.SettingExistsAsync(bKashPaymentSettings, x => x.AdditionalFee, storeScope);
+                model.AdditionalFeePercentage_OverrideForStore = await _settingService.SettingExistsAsync(bKashPaymentSettings, x => x.AdditionalFeePercentage, storeScope);
+                model.ReceiverNumber_OverrideForStore = await _settingService.SettingExistsAsync(bKashPaymentSettings, x => x.ReceiverNumber, storeScope);
+                model.ReceiverName_OverrideForStore = await _settingService.SettingExistsAsync(bKashPaymentSettings, x => x.ReceiverName, storeScope);
                 model.AdditionalFeePercentage_OverrideForStore = await _settingService.SettingExistsAsync(bKashPaymentSettings, x => x.AdditionalFeePercentage, storeScope);
             }
 
@@ -86,6 +91,8 @@ namespace Nop.Plugin.Payments.bKash.Controllers
             //save settings
             bKashPaymentSettings.DescriptionText = model.DescriptionText;
             bKashPaymentSettings.AdditionalFee = model.AdditionalFee;
+            bKashPaymentSettings.ReceiverNumber = model.ReceiverNumber;
+            bKashPaymentSettings.ReceiverName = model.ReceiverName;
             bKashPaymentSettings.AdditionalFeePercentage = model.AdditionalFeePercentage;
 
             /* We do not clear cache after each setting update.
@@ -94,6 +101,8 @@ namespace Nop.Plugin.Payments.bKash.Controllers
 
             await _settingService.SaveSettingOverridablePerStoreAsync(bKashPaymentSettings, x => x.DescriptionText, model.DescriptionText_OverrideForStore, storeScope, false);
             await _settingService.SaveSettingOverridablePerStoreAsync(bKashPaymentSettings, x => x.AdditionalFee, model.AdditionalFee_OverrideForStore, storeScope, false);
+            await _settingService.SaveSettingOverridablePerStoreAsync(bKashPaymentSettings, x => x.ReceiverNumber, model.ReceiverNumber_OverrideForStore, storeScope, false);
+            await _settingService.SaveSettingOverridablePerStoreAsync(bKashPaymentSettings, x => x.ReceiverName, model.ReceiverName_OverrideForStore, storeScope, false);
             await _settingService.SaveSettingOverridablePerStoreAsync(bKashPaymentSettings, x => x.AdditionalFeePercentage, model.AdditionalFeePercentage_OverrideForStore, storeScope, false);
 
             //now clear settings cache

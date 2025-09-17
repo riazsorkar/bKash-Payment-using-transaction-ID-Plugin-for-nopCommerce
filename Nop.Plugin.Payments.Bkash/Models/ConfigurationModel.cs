@@ -15,9 +15,19 @@ namespace Nop.Plugin.Payments.bKash.Models
         public decimal AdditionalFee { get; set; }
         public bool AdditionalFee_OverrideForStore { get; set; }
 
+
         [NopResourceDisplayName("Plugins.Payments.bKash.AdditionalFeePercentage")]
         public bool AdditionalFeePercentage { get; set; }
         public bool AdditionalFeePercentage_OverrideForStore { get; set; }
+
+
+        [NopResourceDisplayName("Plugins.Payments.bKash.ReceiverNumber")]
+        public string ReceiverNumber { get; set; }
+        public bool ReceiverNumber_OverrideForStore { get; set; }
+
+        [NopResourceDisplayName("Plugins.Payments.bKash.ReceiverName")]
+        public string ReceiverName { get; set; }
+        public bool ReceiverName_OverrideForStore { get; set; }
     }
 
     public record PaymentInfoModel : BaseNopModel
@@ -27,5 +37,10 @@ namespace Nop.Plugin.Payments.bKash.Models
 
         [NopResourceDisplayName("Plugins.Payments.bKash.SenderNumber")]
         public string SenderNumber { get; set; }
+
+        [NopResourceDisplayName("Plugins.Payments.bKash.bkashReceverNumber")]
+        public string ReceiverNumber { get; set; }
+        public string ReceiverName { get; set; }
+        public string PaymentInstructions { get; set; }
     }
 }

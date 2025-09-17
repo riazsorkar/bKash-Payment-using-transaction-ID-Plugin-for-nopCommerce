@@ -1,5 +1,35 @@
 ﻿@model Nop.Plugin.Payments.bKash.Models.PaymentInfoModel
 
+@if (!string.IsNullOrEmpty(Model.ReceiverNumber))
+{
+	<div class="bkash-payment-instructions" style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #e2136e;">
+		<h4 style="color: #e2136e; margin-top: 0;">bKash Payment Instructions</h4>
+
+		<div class="receiver-info" style="margin-bottom: 15px;">
+			<strong>Send money to:</strong><br />
+			@if (!string.IsNullOrEmpty(Model.ReceiverName))
+			{
+				<span name="bkashReceiverName">Name: @Model.ReceiverName</span>
+
+				<br />
+			}
+			<span>Number: <strong style="color: #e2136e;" name="bkashReceiverNumber">@Model.ReceiverNumber</strong></span>
+
+		</div>
+
+		<div class="steps" style="font-size: 14px;">
+			<p style="margin-bottom: 8px;">1. Open your bKash app</p>
+			<p style="margin-bottom: 8px;">2. Go to "Send Money"</p>
+			<p style="margin-bottom: 8px;">3. Enter the receiver number above</p>
+			<p style="margin-bottom: 8px;">4. Enter the exact order amount</p>
+			<p style="margin-bottom: 8px;">5. Add reference: Order #</p>
+			<p style="margin-bottom: 8px;">6. Complete the transaction</p>
+			<p style="margin-bottom: 8px;">7. Enter the Transaction ID below</p>
+		</div>
+	</div>
+}
+
+
 <div class="form-group">
 	<div class="col-md-3">
 		<nop-label asp-for="TransactionId" />
@@ -9,6 +39,8 @@
 		<span asp-validation-for="TransactionId"></span>
 	</div>
 </div>
+
+
 <div class="form-group">
 	<div class="col-md-3">
 		<nop-label asp-for="SenderNumber" />
@@ -18,3 +50,14 @@
 		<span asp-validation-for="SenderNumber"></span>
 	</div>
 </div>
+
+
+<style>
+	.bkash-payment-instructions {
+		border-color: #e2136e !important;
+	}
+
+		.bkash-payment-instructions h4 {
+			color: #e2136e;
+		}
+</style>
